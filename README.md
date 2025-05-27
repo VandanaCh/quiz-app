@@ -1,10 +1,11 @@
-#Quiz API (Take-Home Assignment)
+#  Quiz API (Take-Home Assignment)
 
-A RESTful backend service built in **Node.js + TypeScript** to manage and execute quizzes. Users can create quizzes, fetch them, submit answers, and get results.
+A RESTful backend service built in **Node.js + TypeScript** to manage and execute quizzes.  
+Users can create quizzes, fetch them, submit answers, and view results.
 
 ---
 
-## Tech Stack
+##  Tech Stack
 
 - Node.js
 - Express.js
@@ -15,93 +16,99 @@ A RESTful backend service built in **Node.js + TypeScript** to manage and execut
 
 ---
 
-## Getting Started
+##  Getting Started
 
 ### Prerequisites
 
-- Node.js (>= 16)
+- Node.js (v16 or higher)
 - Docker & Docker Compose
 
 ---
 
-### ⚙️ Local Development (without Docker)
-
-1. Clone the repo:
+###  Local Development (without Docker)
 
 ```bash
-git clone https://github.com/your-username/quiz-api.git
-cd quiz-api
-
+git clone https://github.com/VandanaCh/quiz-app.git
+cd quiz-app
 
 # Install dependencies
- npm install
+npm install
 
-# Run the app
- npm start 
-
-#Visit the API at:
-http://localhost:3000/api
-
-
-
-API endpoints and sample curls
-
-Create Quiz:
-curl --location 'http://localhost:3000/api/quizzes' \
---header 'Content-Type: application/json' \
---data '{
-    "title": "JavaScript Basics",
-    "questions": [
-      {
-        "text": "What is the output of typeof null?",
-        "options": ["object", "null", "undefined", "function"],
-        "correct_option": 0
-      },
-      {
-        "text": "Which method converts JSON string to object?",
-        "options": ["JSON.stringify", "JSON.parse", "JSON.objectify", "parseJSON"],
-        "correct_option": 1
-      }
-    ]
-  }'
-
-Get Quiz:
-curl --location 'http://localhost:3000/api/quizzes/6cc016e3-accb-47f1-b145-c03246d5fe7c/questions/<question_id>/answer' \
---header 'Content-Type: application/json' \
---data '{
-    "userId": "user123",
-    "selected_option": 0
-  }'
-
-
-Submit Answer:
-curl --location 'http://localhost:3000/api/quizzes/6cc016e3-accb-47f1-b145-c03246d5fe7c/questions/444193f8-e3d9-49bf-b5be-73609815c8ce/answer' \
---header 'Content-Type: application/json' \
---data '{
-    "userId": "user123",
-    "selected_option": 0
-  }'
-
-Get Results:
-curl --location 'http://localhost:3000/api/quizzes/6cc016e3-accb-47f1-b145-c03246d5fe7c/results/user123'
+# Start the server
+npm start
 
 
 #Run with Docker Compose
 
+docker compose up --build
 
-docker-compose up --build
+# API Endpoints & Sample cURL Commands for testing 
+
+#Create Quiz
+curl --location 'http://localhost:3000/api/quizzes' \
+--header 'Content-Type: application/json' \
+--data '{
+  "title": "JavaScript Basics",
+  "questions": [
+    {
+      "text": "What is the output of typeof null?",
+      "options": ["object", "null", "undefined", "function"],
+      "correct_option": 0
+    },
+    {
+      "text": "Which method converts JSON string to object?",
+      "options": ["JSON.stringify", "JSON.parse", "JSON.objectify", "parseJSON"],
+      "correct_option": 1
+    }
+  ]
+}'
+
+#Get Quiz 
+
+curl --location 'http://localhost:3000/api/quizzes/<quiz_id>'
 
 
-# Run Tests
+#Submit Answer
+
+curl --location 'http://localhost:3000/api/quizzes/<quiz_id>/questions/<question_id>/answer' \
+--header 'Content-Type: application/json' \
+--data '{
+  "userId": "user123",
+  "selected_option": 0
+}'
+
+
+#Get Results
+
+curl --location 'http://localhost:3000/api/quizzes/<quiz_id>/results/user123'
+
+
+#Run Tests
+
 npm test
 
 
- Project Structure
+#Project Structure
+
 src/
   ├── routes/       # API route handlers
   ├── models/       # TypeScript interfaces
-  ├── data/         # In-memory database logic
-  └── index.ts      # Main Express app
+  ├── data/         # In-memory data store
+  └── index.ts      # Entry point (Express app)
+
+#Known Issues / Limitations
+
+Uses in-memory storage — data is lost when the app restarts.
+
+No authentication or user accounts.
+
+Minimal input validation (can be extended).
+
+No pagination/filtering for quizzes or answers.
 
 
 
+#Notes
+Docker setup tested and works with Node 18+.
+
+Project does not mention Madison Logic per assignment rules.
